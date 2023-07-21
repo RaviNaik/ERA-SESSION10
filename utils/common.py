@@ -1,0 +1,76 @@
+import numpy as np
+import random
+import matplotlib.pyplot as plt
+
+import torch
+import torchvision
+from torchinfo import summary
+from torch_lr_finder import LRFinder
+
+
+def find_lr(model, optimizer, criterion, device, trainloader, numiter, startlr, endlr):
+    lr_finder = LRFinder(
+        model=model, optimizer=optimizer, criterion=criterion, device=device
+    )
+
+    lr_finder.range_test(
+        train_loader=trainloader,
+        start_lr=startlr,
+        end_lr=endlr,
+        num_iter=numiter,
+        step_mode="exp",
+    )
+
+    lr_finder.plot()
+
+    lr_finder.reset()
+
+
+def one_cycle_lr(optimizer, maxlr, steps, epochs):
+    scheduler = torch.optim.lr_scheduler.OneCycleLR(
+        optimizer=optimizer,
+        max_lr=maxlr,
+        steps_per_epoch=steps,
+        epochs=epochs,
+        pct_start=5 / epochs,
+        div_factor=100,
+        three_phase=False,
+        final_div_factor=100,
+        anneal_strategy="linear",
+    )
+    return scheduler
+
+
+def show_random_images_for_each_class(train_data, num_images_per_class=16):
+    for c, cls in enumerate(train_data.classes):
+        rand_targets = random.sample(
+            [n for n, x in enumerate(train_data.targets) if x == c],
+            k=num_images_per_class,
+        )
+        show_img_grid(np.transpose(train_data.data[rand_targets], axes=(0, 3, 1, 2)))
+        plt.title(cls)
+
+
+def show_img_grid(data):
+    try:
+        grid_img = torchvision.utils.make_grid(data.cpu().detach())
+    except:
+        data = torch.from_numpy(data)
+        grid_img = torchvision.utils.make_grid(data)
+
+    plt.figure(figsize=(10, 10))
+    plt.imshow(grid_img.permute(1, 2, 0))
+
+
+def show_random_images(data_loader):
+    data, target = next(iter(data_loader))
+    show_img_grid(data)
+
+
+def show_model_summary(model, batch_size):
+    summary(
+        model=model,
+        input_size=(batch_size, 3, 32, 32),
+        col_names=["input_size", "output_size", "num_params", "kernel_size"],
+        verbose=1,
+    )
