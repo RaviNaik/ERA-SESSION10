@@ -88,7 +88,7 @@ test_transform = A.Compose(
 ```
 
 ## Targets To be Achieved
-Write a customLinks to an external site. ResNet architecture for CIFAR10 that has the following architecture:
+ - :heavy_check_mark: Write a custom ResNet architecture for CIFAR10 that has the following architecture:
 PrepLayer - Conv 3x3 s1, p1) >> BN >> RELU [64k]
 Layer1 -
 X = Conv 3x3 (s1, p1) >> MaxPool2D >> BN >> RELU [128k]
@@ -106,18 +106,18 @@ Add(X, R2)
 MaxPooling with Kernel Size 4
 FC Layer 
 SoftMax
-Uses One Cycle Policy such that:
+- :heavy_check_mark: Uses One Cycle Policy such that:
 Total Epochs = 24
 Max at Epoch = 5
 LRMIN = FIND
 LRMAX = FIND
 NO Annihilation
-Uses this transform -RandomCrop 32, 32 (after padding of 4) >> FlipLR >> Followed by CutOut(8, 8)
+- :heavy_check_mark: Uses this transform -RandomCrop 32, 32 (after padding of 4) >> FlipLR >> Followed by CutOut(8, 8)
 Batch size = 512
-Use ADAM, and CrossEntropyLoss
-Target Accuracy: 90%
-NO score if your code is not modular. Your collab must be importing your GitHub package, and then just running the model. I should be able to find the custom_resnet.py model in your GitHub repo that you'd be training. 
-Once done, proceed to answer the Assignment-Solution page. 
+- :heavy_check_mark: Use ADAM, and CrossEntropyLoss
+- :heavy_check_mark: Target Accuracy: 90%
+- :heavy_check_mark: NO score if your code is not modular. Your collab must be importing your GitHub package, and then just running the model. I should be able to find the custom_resnet.py model in your GitHub repo that you'd be training. 
+- :heavy_check_mark: Once done, proceed to answer the Assignment-Solution page. 
 
 ## LR Finder
 ![image](https://github.com/RaviNaik/ERA-SESSION10/assets/23289802/7df02efb-e727-490c-bd5d-25211d1f8f0a)
