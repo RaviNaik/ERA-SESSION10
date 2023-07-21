@@ -106,10 +106,10 @@ test_transform = A.Compose(
         MaxPooling with Kernel Size 4 
         FC Layer  
         SoftMax  
-- :heavy_check_mark: Uses One Cycle Policy such that:\
- - Total Epochs = 24\
-        Max at Epoch = 5\
-        LRMIN = FIND\
+- :heavy_check_mark: Uses One Cycle Policy such that:
+    - Total Epochs = 24\
+    - Max at Epoch = 5\
+    - LRMIN = FIND\
         LRMAX = FIND\
         NO Annihilation
 - :heavy_check_mark: Uses this transform -RandomCrop 32, 32 (after padding of 4) >> FlipLR >> Followed by CutOut(8, 8)
