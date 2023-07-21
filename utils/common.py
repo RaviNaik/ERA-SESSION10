@@ -74,3 +74,29 @@ def show_model_summary(model, batch_size):
         col_names=["input_size", "output_size", "num_params", "kernel_size"],
         verbose=1,
     )
+
+
+def lossacc_plots(results):
+    plt.plot(results["epoch"], results["trainloss"])
+    plt.plot(results["epoch"], results["testloss"])
+    plt.legend(["Train Loss", "Validation Loss"])
+    plt.xlabel("Epochs")
+    plt.ylabel("Loss")
+    plt.title("Loss vs Epochs")
+    plt.show()
+
+    plt.plot(results["epoch"], results["trainacc"])
+    plt.plot(results["epoch"], results["testacc"])
+    plt.legend(["Train Acc", "Validation Acc"])
+    plt.xlabel("Epochs")
+    plt.ylabel("Accuracy")
+    plt.title("Accuracy vs Epochs")
+    plt.show()
+
+
+def lr_plots(results, length):
+    plt.plot(range(length), results["lr"])
+    plt.xlabel("Epochs")
+    plt.ylabel("Learning Rate")
+    plt.title("Learning Rate vs Epochs")
+    plt.show()

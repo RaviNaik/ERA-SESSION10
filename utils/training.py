@@ -9,6 +9,7 @@ def train(
     train_loader,
     optimizer,
     criterion,
+    scheduler,
     L1=False,
     l1_lambda=0.01,
 ):
@@ -17,6 +18,7 @@ def train(
 
     train_losses = []
     train_acc = []
+    lrs = []
 
     correct = 0
     processed = 0
@@ -43,6 +45,7 @@ def train(
         # Backpropagation
         loss.backward()
         optimizer.step()
+        scheduler.step()
 
         # Update pbar-tqdm
         pred = y_pred.argmax(
@@ -52,11 +55,12 @@ def train(
         processed += len(data)
 
         pbar.set_description(
-            desc=f"Loss={loss.item()} Batch_id={batch_idx} Accuracy={100*correct/processed:0.2f}"
+            desc=f"Loss={loss.item():0.2f} Accuracy={100*correct/processed:0.2f}"
         )
         train_acc.append(100 * correct / processed)
+        lrs.append(scheduler.get_last_lr())
 
-    return train_losses, train_acc
+    return train_losses, train_acc, lrs
 
 
 def test(model, device, criterion, test_loader):
