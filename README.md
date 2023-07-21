@@ -107,11 +107,11 @@ test_transform = A.Compose(
         FC Layer  
         SoftMax  
 - :heavy_check_mark: Uses One Cycle Policy such that:\
-        Total Epochs = 24\
+ - Total Epochs = 24\
         Max at Epoch = 5\
         LRMIN = FIND\
         LRMAX = FIND\
-        NO Annihilation\
+        NO Annihilation
 - :heavy_check_mark: Uses this transform -RandomCrop 32, 32 (after padding of 4) >> FlipLR >> Followed by CutOut(8, 8)
 - :heavy_check_mark: Batch size = 512
 - :heavy_check_mark: Use ADAM, and CrossEntropyLoss
